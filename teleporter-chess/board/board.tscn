@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://vimoariqbdhc" path="res://board/assets/ChessBoard.fbx" id="1_5c38k"]
 [ext_resource type="Script" uid="uid://ueqhit2kwah1" path="res://board/Board.cs" id="1_vj8kq"]
-[ext_resource type="MeshLibrary" uid="uid://d0e1uh0l6ju15" path="res://pieces/assets/pieces_mesh_library.tres" id="2_k4dee"]
+[ext_resource type="MeshLibrary" uid="uid://d0e1uh0l6ju15" path="res://pieces/pieces_mesh_library.tres" id="2_k4dee"]
 [ext_resource type="Script" uid="uid://b757jm3011kwm" path="res://board/PlacementGrid.cs" id="4_eiwly"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k4dee"]
