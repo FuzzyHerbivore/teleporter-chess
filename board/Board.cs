@@ -24,7 +24,7 @@ public partial class Board : Node3D
             if (!raycastResult.TryGetValue("position", out Variant hitPositionVariant)) return;
             Vector3 hitPosition = (Vector3)hitPositionVariant;
 
-            // TODO: Move some stuff to GridMap script
+            // TODO: Move some stuff to PlacementGrid script
 
             if (gridMapOption is not GridMap gridMap) return;
             var cellPosition = gridMap.LocalToMap(hitPosition);
