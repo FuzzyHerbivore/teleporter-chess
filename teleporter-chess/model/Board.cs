@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace TeleporterChess.model
@@ -8,9 +7,9 @@ namespace TeleporterChess.model
         const uint ROW_COUNT = 8;
         const uint COLUMN_COUNT = 8;
 
-        readonly Dictionary<(uint, uint), Piece> squares;
+        readonly Dictionary<(uint, uint), Piece> squares = [];
 
-        public BoardData Data => new BoardData()
+        public BoardData Data => new()
         {
             rowCount = ROW_COUNT,
             columnCount = COLUMN_COUNT,
@@ -51,7 +50,5 @@ namespace TeleporterChess.model
 
             return null;
         }
-
-
     }
 }
