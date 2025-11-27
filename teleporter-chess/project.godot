@@ -24,6 +24,7 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="Teleporter Chess"
+project/solution_directory="../"
 
 [input]
 
