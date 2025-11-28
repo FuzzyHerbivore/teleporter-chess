@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://c752jlaxnce2d"]
 
-[ext_resource type="PackedScene" uid="uid://s2mvel0cujau" path="res://board/board.tscn" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://bk1qo8ivigb8f" path="res://set/camera_rig.tscn" id="1_e2o6t"]
-[ext_resource type="Script" uid="uid://cyo7qt73oby25" path="res://View/Game/Game.cs" id="1_feb5d"]
+[ext_resource type="Script" uid="uid://cyo7qt73oby25" path="res://View/Game/Game.cs" id="1_3phup"]
+[ext_resource type="PackedScene" uid="uid://bk1qo8ivigb8f" path="res://set/camera_rig.tscn" id="2_4yymi"]
+[ext_resource type="PackedScene" uid="uid://s2mvel0cujau" path="res://board/board.tscn" id="3_pfkht"]
 
 [sub_resource type="Gradient" id="Gradient_feb5d"]
 offsets = PackedFloat32Array(0.07476635, 1)
@@ -31,7 +31,7 @@ adjustment_saturation = 1.05
 adjustment_color_correction = SubResource("GradientTexture1D_fc0e3")
 
 [node name="Game" type="Node"]
-script = ExtResource("1_feb5d")
+script = ExtResource("1_3phup")
 
 [node name="Set" type="Node3D" parent="."]
 
@@ -45,10 +45,11 @@ light_energy = 0.8
 shadow_enabled = true
 spot_angle = 53.281166
 
-[node name="CameraRig" parent="Set/Gear" instance=ExtResource("1_e2o6t")]
+[node name="CameraRig" parent="Set/Gear" instance=ExtResource("2_4yymi")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="Board" parent="Set" instance=ExtResource("1_80nbo")]
+[node name="Board" parent="Set" instance=ExtResource("3_pfkht")]
+unique_name_in_owner = true
 
 [node name="Environment" type="Node3D" parent="Set"]
 
