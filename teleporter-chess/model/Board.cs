@@ -1,49 +1,47 @@
 using System.Collections.Generic;
 
-namespace TeleporterChess.model
+namespace TeleporterChess.Model
 {
     public class Board
     {
-        const uint ROW_COUNT = 8;
         const uint COLUMN_COUNT = 8;
+        const uint ROW_COUNT = 8;
 
         readonly Dictionary<(uint, uint), Piece> squares = [];
 
         public BoardData Data => new()
         {
-            rowCount = ROW_COUNT,
             columnCount = COLUMN_COUNT,
+            rowCount = ROW_COUNT,
             squares = new(squares)
         };
 
-        public bool IsPlaceable(Piece piece, uint row, uint column)
+        public bool IsPlaceable(Piece piece, uint column, uint row)
         {
-            if (row >= ROW_COUNT) return false;
             if (column >= COLUMN_COUNT) return false;
-
-            var square = (row, column);
+            if (row >= ROW_COUNT) return false;
 
             // TODO: Add other conditions per piece type in separate methods
 
-            if (GetSquare(row, column) != null) return false; // TODO: Change this to check for capture
+            if (GetSquare(column, row) != null) return false; // TODO: Change this to check for capture
             // TODO: Add check for checkmate/stallmate
 
             return true;
         }
 
-        public bool TryPlacing(Piece piece, uint row, uint column)
+        public bool TryPlacing(Piece piece, uint column, uint row)
         {
-            if (!IsPlaceable(piece, row, column)) return false;
+            if (!IsPlaceable(piece, column, row)) return false;
 
-            var square = (row, column);
+            var square = (column, row);
             squares[square] = piece;
 
             return true;
         }
 
-        private Piece? GetSquare(uint row, uint column)
+        public Piece? GetSquare(uint column, uint row)
         {
-            if (squares.TryGetValue((row, column), out Piece piece))
+            if (squares.TryGetValue((column, row), out Piece piece))
             {
                 return piece;
             }

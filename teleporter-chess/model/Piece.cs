@@ -1,4 +1,4 @@
-using TeleporterChess.model;
+using TeleporterChess.Model;
 
 public enum PieceType
 {

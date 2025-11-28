@@ -1,4 +1,4 @@
-namespace TeleporterChess.model
+namespace TeleporterChess.Model
 {
     public enum Player
     {
