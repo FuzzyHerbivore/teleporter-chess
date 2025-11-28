@@ -2,17 +2,10 @@
 
 namespace TeleporterChess.Model;
 
-public struct GameData
+public struct GameData(GameState gameState, BoardData boardData, Player currentPlayer)
 {
-    public GameState CurrentGameState { get; private set; }
-    public BoardData CurrentBoardData { get; private set; }
-    public Player CurrentPlayer { get; private set; }
+    public GameState CurrentGameState { get; private set; } = gameState;
+    public Player CurrentPlayer { get; private set; } = currentPlayer;
+    public BoardData CurrentBoardData { get; private set; } = boardData;
     public Player? Winner { get; private set; }
-
-    public GameData(GameState gameState, BoardData boardData, Player currentPlayer)
-    {
-        CurrentGameState = gameState;
-        CurrentBoardData = boardData;
-        CurrentPlayer = currentPlayer;
-    }
 }
