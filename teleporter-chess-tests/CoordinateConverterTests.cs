@@ -1,5 +1,7 @@
 namespace TeleporterChessTests;
 
+using Godot;
+
 using TeleporterChess.Model;
 using TeleporterChess.Utils;
 
@@ -11,7 +13,11 @@ public class CoordinateConverterTests
     [InlineData(3, 3, Column.H, Row._8)]
     public void ConvertGridMapCoordinatesToSquareReturnsCorrectSquare(int gridMapColumn, int gridMapRow, Column expectedColumn, Row expectedRow)
     {
-        Square square = CoordinateConverter.ConvertGridMapCoordinatesToSquare((gridMapColumn, gridMapRow));
+        Vector3I gridMapVector = Vector3I.Zero;
+        gridMapVector.X = gridMapColumn;
+        gridMapVector.Z = gridMapRow;
+
+        Square square = CoordinateConverter.ConvertGridMapCoordinatesToSquare(gridMapVector);
         Square expectedSquare = new(expectedColumn, expectedRow);
         Assert.Equal(expectedSquare, square);
     }
@@ -22,8 +28,8 @@ public class CoordinateConverterTests
     [InlineData(Column.H, Row._8, 3, 3)]
     public void ConvertSquareToGridMapCoordinatesReturnsCorrectCoordinates(Column squareColumn, Row squareRow, int expectedColumn, int expectedRow)
     {
-        (int, int) gridMapCoordinates = CoordinateConverter.ConvertSquareToGridMapCoordinates(new Square(squareColumn, squareRow));
+        Vector3I gridMapCoordinates = CoordinateConverter.ConvertSquareToGridMapCoordinates(new Square(squareColumn, squareRow));
 
-        Assert.Equal((expectedColumn, expectedRow), gridMapCoordinates);
+        Assert.Equal((expectedColumn, expectedRow), (gridMapCoordinates.X, gridMapCoordinates.Z));
     }
 }

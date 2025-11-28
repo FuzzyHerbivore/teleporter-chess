@@ -1,3 +1,4 @@
+using Godot;
 using TeleporterChess.Model;
 
 namespace TeleporterChess.Utils;
@@ -6,13 +7,16 @@ public struct CoordinateConverter
 {
     const int GRIDMAP_OFFSET = 4;
 
-    public static Square ConvertGridMapCoordinatesToSquare((int, int) gridMapCoordinates)
+    public static Square ConvertGridMapCoordinatesToSquare(Vector3I gridMapCoordinates)
     {
-        return new Square((Column)gridMapCoordinates.Item1 + GRIDMAP_OFFSET, (Row)gridMapCoordinates.Item2 + GRIDMAP_OFFSET);
+        return new Square((Column)gridMapCoordinates.X + GRIDMAP_OFFSET, (Row)gridMapCoordinates.Z + GRIDMAP_OFFSET);
     }
 
-    public static (int, int) ConvertSquareToGridMapCoordinates(Square square)
+    public static Vector3I ConvertSquareToGridMapCoordinates(Square square)
     {
-        return ((int)square.Column - GRIDMAP_OFFSET, (int)square.Row - GRIDMAP_OFFSET);
+        Vector3I result = Vector3I.Zero;
+        result.X = (int)square.Column - GRIDMAP_OFFSET;
+        result.Z = (int)square.Row - GRIDMAP_OFFSET;
+        return result;
     }
 }
