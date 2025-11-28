@@ -15,4 +15,15 @@ public class CoordinateConverterTests
 
         Assert.Equal((expectedColumn, expectedRow), squareCoordinates);
     }
+
+    [Theory]
+    [InlineData(Column.A, Row._1, -4, -4)]
+    [InlineData(Column.E, Row._5, 0, 0)]
+    [InlineData(Column.H, Row._8, 3, 3)]
+    public void ConvertSquareToGridMapCoordinatesReturnsCorrectCoordinates(Column squareColumn, Row squareRow, int expectedColumn, int expectedRow)
+    {
+        (int, int) gridMapCoordinates = CoordinateConverter.ConvertSquareToGridMapCoordinates((squareColumn, squareRow));
+
+        Assert.Equal((expectedColumn, expectedRow), gridMapCoordinates);
+    }
 }
