@@ -7,7 +7,7 @@ public class BoardModelTests
     [Fact]
     public void BoardConstructorInitializesEmptyData()
     {
-        TeleporterChess.Model.Board board = new();
+        Board board = new();
         var data = board.Data;
 
         Assert.Empty(data.placedPieces);
@@ -19,9 +19,8 @@ public class BoardModelTests
     [InlineData(Column.H, Row._8)]
     public void TryPlacingSucceeds(Column column, Row row)
     {
-        TeleporterChess.Model.Board board = new();
+        Board board = new();
         var piece = new Piece();
-
         Square square = new(column, row);
 
         Assert.True(board.TryPlacing(piece, square));
@@ -33,11 +32,23 @@ public class BoardModelTests
     [InlineData(Column.H, Row._8)]
     public void GetPieceAtReturnsNullForEmtptySquare(Column emptyColumn, Row emptyRow)
     {
-        TeleporterChess.Model.Board board = new();
-
+        Board board = new();
         Square square = new(emptyColumn, emptyRow);
 
         Assert.Null(board.GetPieceAt(square));
+    }
+
+    [Fact]
+    public void ResetPlacesPiecesToStartPositions()
+    {
+        Board board = new();
+        var piece = new Piece();
+        Square square = new(Column.A, Row._1);
+        board.TryPlacing(piece, square);
+
+        board.Reset();
+
+        Assert.Empty(board.Data.placedPieces); // TODO: This needs to check for the start setup
     }
 
     [Theory]
@@ -46,7 +57,7 @@ public class BoardModelTests
     [InlineData(Column.H, Row._8)]
     public void GetPieceAtReturnsPieceForOccupiedSquare(Column column, Row row)
     {
-        TeleporterChess.Model.Board board = new();
+        Board board = new();
         Piece piece = new();
         Square square = new(column, row);
 
