@@ -2,6 +2,9 @@
 
 using Godot;
 using Godot.Collections;
+using Model = TeleporterChess.Model;
+
+namespace TeleporterChess.View;
 
 public partial class Board : Node3D
 {
@@ -12,22 +15,34 @@ public partial class Board : Node3D
     [Export(PropertyHint.Layers3DPhysics)] private uint pieceSelectionLayers = 1;
 
     [ExportGroup("Dependencies")]
-    [Export] private GridMap? gridMapOption;
+    [Export] private GridMap? gridMap;
+
+    private Model.BoardData? data;
+    private BoardController? controller;
+
+    public override void _Ready()
+    {
+        controller = GetNode<BoardController>("%Controller");
+    }
+
+    public void Init(Model.BoardData data)
+    {
+        this.data = data;
+        controller?.Init(data);
+    }
 
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event is InputEventMouseMotion mouseMotion)
         {
-            var raycastResultOption = RaycastResultFromScreenPosition(mouseMotion.Position, gridSelectionLayers);
-            if (raycastResultOption is not Dictionary raycastResult) return;
+            var raycastResult = RaycastResultFromScreenPosition(mouseMotion.Position, gridSelectionLayers);
+            if (raycastResult is not Dictionary someRaycastResult) return;
 
-            if (!raycastResult.TryGetValue("position", out Variant hitPositionVariant)) return;
+            if (!someRaycastResult.TryGetValue("position", out Variant hitPositionVariant)) return;
             Vector3 hitPosition = (Vector3)hitPositionVariant;
 
-            // TODO: Move some stuff to PlacementGrid script
-
-            if (gridMapOption is not GridMap gridMap) return;
-            var cellPosition = gridMap.LocalToMap(hitPosition);
+            if (gridMap is not GridMap someGridMap) return;
+            var cellPosition = someGridMap.LocalToMap(hitPosition);
 
             // TODO: When piece is selected, highlight hovered cells with valid/invalid color/shape
         }
@@ -44,15 +59,10 @@ public partial class Board : Node3D
             if (!raycastResult.TryGetValue("position", out Variant hitPositionVariant)) return;
             Vector3 hitPosition = (Vector3)hitPositionVariant;
 
-            if (gridMapOption is not GridMap gridMap) return;
-            var cellPosition = gridMap.LocalToMap(hitPosition);
+            if (gridMap is not GridMap someGridMap) return;
+            var cellPosition = someGridMap.LocalToMap(hitPosition);
             GD.Print($"Gridmap cell: {cellPosition}");
         }
-    }
-
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
     }
 
     private Dictionary? RaycastResultFromScreenPosition(Vector2 screenPosition, uint collisionMask = 0b11111111111111111111111111111111)
