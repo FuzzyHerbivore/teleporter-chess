@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace TeleporterChess.Model;
 
@@ -20,8 +19,14 @@ public class Game
 
     readonly Player[] players = [new() { color = Player.Color.White }, new() { color = Player.Color.Black }];
     Player currentPlayer;
+    Square? selectedSquare;
 
     public event Action<GameData> DataChanged;
+
+    public Game()
+    {
+        Reset();
+    }
 
     public void Reset()
     {
@@ -33,10 +38,32 @@ public class Game
         UpdateData();
     }
 
+    public void SwitchCurrentPlayer()
+    {
+        if (currentPlayer == players[0])
+        {
+            currentPlayer = players[1];
+        }
+        else
+        {
+            currentPlayer = players[0];
+        }
+    }
+
+    public void SelectSquare(Square square)
+    {
+        selectedSquare = square;
+    }
+
+    public void DeselectAll()
+    {
+        selectedSquare = null;
+    }
+
     private void UpdateData()
     {
         data = new(currentGameState, board.Data, currentPlayer);
 
-        DataChanged.Invoke(data);
+        DataChanged?.Invoke(data);
     }
 }
