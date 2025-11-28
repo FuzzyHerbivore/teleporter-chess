@@ -1,93 +1,57 @@
-﻿namespace TeleporterChessTests;
+﻿using TeleporterChess.Model;
+
+namespace TeleporterChessTests;
 
 public class BoardModelTests
 {
     [Fact]
-    public void BoardDataIsInitialized()
+    public void BoardConstructorInitializesEmptyData()
     {
         TeleporterChess.Model.Board board = new();
         var data = board.Data;
 
-        Assert.Equal<uint>(8, data.columnCount);
-        Assert.Equal<uint>(8, data.rowCount);
-        Assert.Empty(data.squares);
+        Assert.Empty(data.placedPieces);
     }
 
-    [Fact]
-    public void IsPlaceableReturnsFalseOutsideOfBoard()
-    {
-        TeleporterChess.Model.Board board = new();
-        var piece = new Piece();
-        uint legalColumnNumber = 0;
-        uint overflowingColumnNumber = 8;
-        uint legalRowNumber = 0;
-        uint overflowingRowNumber = 8;
-
-        Assert.False(board.IsPlaceable(piece, legalColumnNumber, overflowingRowNumber));
-        Assert.False(board.IsPlaceable(piece, overflowingColumnNumber, legalRowNumber));
-        Assert.False(board.IsPlaceable(piece, overflowingColumnNumber, overflowingRowNumber));
-    }
-
-    [Fact]
-    public void IsPlaceableReturnsTrueOnBoard()
-    {
-        TeleporterChess.Model.Board board = new();
-        var piece = new Piece();
-        uint legalColumnNumber = 0;
-        uint legalRowNumber = 4;
-
-        Assert.True(board.IsPlaceable(piece, legalColumnNumber, legalRowNumber));
-    }
-
-    [Fact]
-    public void TryPlacingFailsOutsideOfBoard()
-    {
-        TeleporterChess.Model.Board board = new();
-        var piece = new Piece();
-        uint legalColumnNumber = 0;
-        uint overflowingColumnNumber = 8;
-        uint legalRowNumber = 0;
-        uint overflowingRowNumber = 8;
-
-        Assert.False(board.TryPlacing(piece, legalColumnNumber, overflowingRowNumber));
-        Assert.False(board.TryPlacing(piece, overflowingColumnNumber, legalRowNumber));
-        Assert.False(board.TryPlacing(piece, overflowingColumnNumber, overflowingRowNumber));
-    }
-
-    [Fact]
-    public void TryPlacingSucceedsOnBoard()
-    {
-        TeleporterChess.Model.Board board = new();
-        var piece = new Piece();
-        uint legalRowNumber = 0;
-        uint legalColumnNumber = 0;
-
-        Assert.True(board.TryPlacing(piece, legalColumnNumber, legalRowNumber));
-    }
-
-    // TODO: Replace next two tests with tests on Data to make GetSquare private again
-
-    [Fact]
-    public void GetSquareReturnsNullForEmtptySquare()
-    {
-        TeleporterChess.Model.Board board = new();
-        uint emptyColumnNumber = 0;
-        uint emptyRowNumber = 0;
-
-        Assert.Null(board.GetSquare(emptyColumnNumber, emptyRowNumber));
-    }
-
-    [Fact]
-    public void GetSquareReturnsPieceForOccupiedSquare()
+    [Theory]
+    [InlineData(Column.A, Row._1)]
+    [InlineData(Column.E, Row._5)]
+    [InlineData(Column.H, Row._8)]
+    public void TryPlacingSucceeds(Column column, Row row)
     {
         TeleporterChess.Model.Board board = new();
         var piece = new Piece();
 
-        uint occupiedColumnNumber = 0;
-        uint occupiedRowNumber = 0;
+        Square square = new(column, row);
 
-        board.TryPlacing(piece, occupiedColumnNumber, occupiedRowNumber);
+        Assert.True(board.TryPlacing(piece, square));
+    }
 
-        Assert.Equal(piece, board.GetSquare(occupiedColumnNumber, occupiedRowNumber));
+    [Theory]
+    [InlineData(Column.A, Row._1)]
+    [InlineData(Column.E, Row._5)]
+    [InlineData(Column.H, Row._8)]
+    public void GetPieceAtReturnsNullForEmtptySquare(Column emptyColumn, Row emptyRow)
+    {
+        TeleporterChess.Model.Board board = new();
+
+        Square square = new(emptyColumn, emptyRow);
+
+        Assert.Null(board.GetPieceAt(square));
+    }
+
+    [Theory]
+    [InlineData(Column.A, Row._1)]
+    [InlineData(Column.E, Row._5)]
+    [InlineData(Column.H, Row._8)]
+    public void GetPieceAtReturnsPieceForOccupiedSquare(Column column, Row row)
+    {
+        TeleporterChess.Model.Board board = new();
+        Piece piece = new();
+        Square square = new(column, row);
+
+        board.TryPlacing(piece, square);
+
+        Assert.Equal(piece, board.GetPieceAt(square));
     }
 }

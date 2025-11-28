@@ -4,15 +4,15 @@ namespace TeleporterChess.Utils;
 
 public struct CoordinateConverter
 {
-    const int GRIDMAP_OFFSET = 5;
+    const int GRIDMAP_OFFSET = 4;
 
-    public static (Column, Row) ConvertGridMapToSquareCoordinates((int, int) gridMapCoordinates)
+    public static Square ConvertGridMapCoordinatesToSquare((int, int) gridMapCoordinates)
     {
-        return ((Column)gridMapCoordinates.Item1 + GRIDMAP_OFFSET, (Row)gridMapCoordinates.Item2 + GRIDMAP_OFFSET);
+        return new Square((Column)gridMapCoordinates.Item1 + GRIDMAP_OFFSET, (Row)gridMapCoordinates.Item2 + GRIDMAP_OFFSET);
     }
 
-    public static (int, int) ConvertSquareToGridMapCoordinates((Column, Row) squareCoordinates)
+    public static (int, int) ConvertSquareToGridMapCoordinates(Square square)
     {
-        return ((int)squareCoordinates.Item1 - GRIDMAP_OFFSET, (int)squareCoordinates.Item2 - GRIDMAP_OFFSET);
+        return ((int)square.Column - GRIDMAP_OFFSET, (int)square.Row - GRIDMAP_OFFSET);
     }
 }

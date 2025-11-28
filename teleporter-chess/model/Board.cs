@@ -4,44 +4,35 @@ namespace TeleporterChess.Model
 {
     public class Board
     {
-        const uint COLUMN_COUNT = 8;
-        const uint ROW_COUNT = 8;
-
-        readonly Dictionary<(uint, uint), Piece> squares = [];
+        readonly Dictionary<Square, Piece> placedPieces = [];
 
         public BoardData Data => new()
         {
-            columnCount = COLUMN_COUNT,
-            rowCount = ROW_COUNT,
-            squares = new(squares)
+            placedPieces = new(placedPieces)
         };
 
-        public bool IsPlaceable(Piece piece, uint column, uint row)
+        public bool IsPlaceable(Piece piece, Square square)
         {
-            if (column >= COLUMN_COUNT) return false;
-            if (row >= ROW_COUNT) return false;
-
             // TODO: Add other conditions per piece type in separate methods
 
-            if (GetSquare(column, row) != null) return false; // TODO: Change this to check for capture
+            if (GetPieceAt(square) != null) return false; // TODO: Change this to check for capture
             // TODO: Add check for checkmate/stallmate
 
             return true;
         }
 
-        public bool TryPlacing(Piece piece, uint column, uint row)
+        public bool TryPlacing(Piece piece, Square square)
         {
-            if (!IsPlaceable(piece, column, row)) return false;
+            if (!IsPlaceable(piece, square)) return false;
 
-            var square = (column, row);
-            squares[square] = piece;
+            placedPieces[square] = piece;
 
             return true;
         }
 
-        public Piece? GetSquare(uint column, uint row)
+        public Piece? GetPieceAt(Square square)
         {
-            if (squares.TryGetValue((column, row), out Piece piece))
+            if (placedPieces.TryGetValue(square, out Piece piece))
             {
                 return piece;
             }

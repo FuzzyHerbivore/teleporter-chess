@@ -9,11 +9,11 @@ public class CoordinateConverterTests
     [InlineData(-4, -4, Column.A, Row._1)]
     [InlineData(0, 0, Column.E, Row._5)]
     [InlineData(3, 3, Column.H, Row._8)]
-    public void ConvertGridMapToSquareCoordinatesReturnsCorrectCoordinates(int gridMapColumn, int gridMapRow, Column expectedColumn, Row expectedRow)
+    public void ConvertGridMapCoordinatesToSquareReturnsCorrectSquare(int gridMapColumn, int gridMapRow, Column expectedColumn, Row expectedRow)
     {
-        (Column, Row) squareCoordinates = CoordinateConverter.ConvertGridMapToSquareCoordinates((gridMapColumn, gridMapRow));
-
-        Assert.Equal((expectedColumn, expectedRow), squareCoordinates);
+        Square square = CoordinateConverter.ConvertGridMapCoordinatesToSquare((gridMapColumn, gridMapRow));
+        Square expectedSquare = new(expectedColumn, expectedRow);
+        Assert.Equal(expectedSquare, square);
     }
 
     [Theory]
@@ -22,7 +22,7 @@ public class CoordinateConverterTests
     [InlineData(Column.H, Row._8, 3, 3)]
     public void ConvertSquareToGridMapCoordinatesReturnsCorrectCoordinates(Column squareColumn, Row squareRow, int expectedColumn, int expectedRow)
     {
-        (int, int) gridMapCoordinates = CoordinateConverter.ConvertSquareToGridMapCoordinates((squareColumn, squareRow));
+        (int, int) gridMapCoordinates = CoordinateConverter.ConvertSquareToGridMapCoordinates(new Square(squareColumn, squareRow));
 
         Assert.Equal((expectedColumn, expectedRow), gridMapCoordinates);
     }

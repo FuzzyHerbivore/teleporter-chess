@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 
+namespace TeleporterChess.Model;
+
 public struct BoardData
 {
-    public uint rowCount;
-    public uint columnCount;
-
-    public Dictionary<(uint, uint), Piece> squares;
+    public Dictionary<Square, Piece> placedPieces;
 }

@@ -2,42 +2,30 @@ namespace TeleporterChess.Model;
 
 public enum Column : uint
 {
-    A = 1, B, C, D, E, F, G, H
+    A, B, C, D, E, F, G, H
 }
 
 public enum Row : uint
 {
-    _1 = 1, _2, _3, _4, _5, _6, _7, _8
+    _1, _2, _3, _4, _5, _6, _7, _8
 }
 
-public struct Square
+public struct Square(Column column, Row row)
 {
-    Column column;
-    Row row;
+    public Column Column { get; private set; } = column;
+    public Row Row { get; private set; } = row;
 
-    public Square(Column column, Row row)
+    public readonly (uint, uint) GetCoordinates()
     {
-        this.column = column;
-        this.row = row;
+        return ((uint)Column, (uint)Row);
     }
 
-    public (uint, uint) GetOneBasedCoordinates()
+    public readonly (Column, Row) GetManifestCoordinates()
     {
-        return ((uint)column, (uint)row);
+        return (Column, Row);
     }
-
-    public (uint, uint) GetZeroBasedCoordinates()
+    public override readonly string ToString()
     {
-        return ((uint)column - 1, (uint)row - 1);
-    }
-
-    public (Column, Row) GetManifestCoordinates()
-    {
-        return (column, row);
-    }
-
-    public override string ToString()
-    {
-        return $"{column}{(uint)row}";
+        return $"{Column}{(uint)Row + 1}"; // Row needs to compensate for zero-based index
     }
 }
