@@ -17,6 +17,7 @@ mono_crash.*.json
 
 # Additional C# projects ignores
 obj/
+bin/
 
 # System/tool-specific ignores
 .directory
