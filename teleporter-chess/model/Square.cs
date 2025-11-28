@@ -1,3 +1,6 @@
+using Godot;
+using TeleporterChess.Utils;
+
 namespace TeleporterChess.Model;
 
 public enum Column : uint
@@ -15,9 +18,9 @@ public struct Square(Column column, Row row)
     public Column Column { get; private set; } = column;
     public Row Row { get; private set; } = row;
 
-    public readonly (uint, uint) GetCoordinates()
+    public readonly Vector3I GetGridMapCoordinates()
     {
-        return ((uint)Column, (uint)Row);
+        return CoordinateConverter.ConvertSquareToGridMapCoordinates(this);
     }
 
     public readonly (Column, Row) GetManifestCoordinates()

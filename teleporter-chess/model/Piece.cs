@@ -1,17 +1,40 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace TeleporterChess.Model;
 
-public enum PieceType
+public struct Piece(Piece.Type type, Player.Color color)
 {
-    King,
-    Queen,
-    Bishop,
-    Knight,
-    Rook,
-    Pawn
-}
+    public enum Type
+    {
+        King,
+        Queen,
+        Bishop,
+        Knight,
+        Rook,
+        Pawn
+    }
 
-public struct Piece
-{
-    public PieceType pieceType;
-    public Player player;
+    public Type type = type;
+    public Player.Color color = color;
+
+
+    public override readonly bool Equals([NotNullWhen(true)] object obj)
+    {
+        return base.Equals(obj);
+    }
+
+    public override readonly int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
+    public static bool operator ==(Piece piece, Piece otherPiece)
+    {
+        return piece.Equals(otherPiece);
+    }
+
+    public static bool operator !=(Piece piece, Piece otherPiece)
+    {
+        return !piece.Equals(otherPiece);
+    }
 }

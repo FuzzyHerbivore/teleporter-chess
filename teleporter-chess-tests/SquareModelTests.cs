@@ -1,20 +1,21 @@
 namespace TeleporterChessTests;
 
+using Godot;
 using TeleporterChess.Model;
 
 public class SquareModelTests
 {
     [Theory]
-    [InlineData(Column.A, Row._1, 0, 0)]
-    [InlineData(Column.E, Row._5, 4, 4)]
-    [InlineData(Column.H, Row._8, 7, 7)]
-    public void GetCoordinatesReturnsCorrectCoordinates(Column column, Row row, uint expectedColumn, uint expectedRow)
+    [InlineData(Column.A, Row._1, -4, -4)]
+    [InlineData(Column.E, Row._5, 0, 0)]
+    [InlineData(Column.H, Row._8, 3, 3)]
+    public void GetGridMapCoordinatesReturnsCorrectGridMapCoordinates(Column squareColumn, Row squareRow, int expectedColumn, int expectedRow)
     {
-        Square square = new(column, row);
+        Square square = new(squareColumn, squareRow);
 
-        (uint, uint) indexCoordinates = square.GetCoordinates();
+        Vector3I gridMapCoordinates = square.GetGridMapCoordinates();
 
-        Assert.Equal((expectedColumn, expectedRow), indexCoordinates);
+        Assert.Equal((expectedColumn, expectedRow), (gridMapCoordinates.X, gridMapCoordinates.Z));
     }
 
     [Theory]
