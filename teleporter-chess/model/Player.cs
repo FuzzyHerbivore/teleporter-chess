@@ -1,8 +1,13 @@
 namespace TeleporterChess.Model
 {
-    public enum Player
+    public struct Player
     {
-        Black,
-        White
+        public enum Color
+        {
+            Black,
+            White
+        }
+
+        public Color color;
     }
 }
