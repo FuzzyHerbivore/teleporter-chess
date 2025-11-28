@@ -15,6 +15,9 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 
+# Additional C# projects ignores
+obj/
+
 # System/tool-specific ignores
 .directory
 .DS_Store
