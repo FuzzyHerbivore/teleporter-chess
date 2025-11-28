@@ -13,7 +13,41 @@ public class Board()
 
     public void Reset()
     {
-        placedPieces.Clear(); // TODO: Use start setup
+        placedPieces = new()
+            {
+                {new Square(Column.A, Row._1), new Piece(Piece.Type.Rook, Player.Color.White)},
+                {new Square(Column.B, Row._1), new Piece(Piece.Type.Knight, Player.Color.White)},
+                {new Square(Column.C, Row._1), new Piece(Piece.Type.Bishop, Player.Color.White)},
+                {new Square(Column.D, Row._1), new Piece(Piece.Type.Queen, Player.Color.White)},
+                {new Square(Column.E, Row._1), new Piece(Piece.Type.King, Player.Color.White)},
+                {new Square(Column.F, Row._1), new Piece(Piece.Type.Bishop, Player.Color.White)},
+                {new Square(Column.G, Row._1), new Piece(Piece.Type.Knight, Player.Color.White)},
+                {new Square(Column.H, Row._1), new Piece(Piece.Type.Rook, Player.Color.White)},
+                {new Square(Column.A, Row._2), new Piece(Piece.Type.Pawn, Player.Color.White)},
+                {new Square(Column.B, Row._2), new Piece(Piece.Type.Pawn, Player.Color.White)},
+                {new Square(Column.C, Row._2), new Piece(Piece.Type.Pawn, Player.Color.White)},
+                {new Square(Column.D, Row._2), new Piece(Piece.Type.Pawn, Player.Color.White)},
+                {new Square(Column.E, Row._2), new Piece(Piece.Type.Pawn, Player.Color.White)},
+                {new Square(Column.F, Row._2), new Piece(Piece.Type.Pawn, Player.Color.White)},
+                {new Square(Column.G, Row._2), new Piece(Piece.Type.Pawn, Player.Color.White)},
+                {new Square(Column.H, Row._2), new Piece(Piece.Type.Pawn, Player.Color.White)},
+                {new Square(Column.A, Row._8), new Piece(Piece.Type.Rook, Player.Color.Black)},
+                {new Square(Column.B, Row._8), new Piece(Piece.Type.Knight, Player.Color.Black)},
+                {new Square(Column.C, Row._8), new Piece(Piece.Type.Bishop, Player.Color.Black)},
+                {new Square(Column.D, Row._8), new Piece(Piece.Type.Queen, Player.Color.Black)},
+                {new Square(Column.E, Row._8), new Piece(Piece.Type.King, Player.Color.Black)},
+                {new Square(Column.F, Row._8), new Piece(Piece.Type.Bishop, Player.Color.Black)},
+                {new Square(Column.G, Row._8), new Piece(Piece.Type.Knight, Player.Color.Black)},
+                {new Square(Column.H, Row._8), new Piece(Piece.Type.Rook, Player.Color.Black)},
+                {new Square(Column.A, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
+                {new Square(Column.B, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
+                {new Square(Column.C, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
+                {new Square(Column.D, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
+                {new Square(Column.E, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
+                {new Square(Column.F, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
+                {new Square(Column.G, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
+                {new Square(Column.H, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
+            };
     }
 
     public bool IsPlaceable(Piece piece, Square square)
