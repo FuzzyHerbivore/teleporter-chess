@@ -8,9 +8,12 @@ namespace TeleporterChess.View;
 public partial class Game : Node
 {
     private readonly Model.Game model = new();
-    private Board? view;
+
+    private Board? boardView;
 
     public GameData data;
+
+    private Controller.ResetController? resetController;
 
     public override void _EnterTree()
     {
@@ -19,7 +22,9 @@ public partial class Game : Node
 
     public override void _Ready()
     {
-        view = GetNode<Board>("%Board");
+        boardView = GetNode<Board>("%Board");
+
+        resetController = GetNode<Controller.ResetController>("%ResetController");
 
         model.Reset();
     }
@@ -33,6 +38,9 @@ public partial class Game : Node
     {
         // TODO: Deal with UI
 
-        view?.SetData(data);
+        boardView?.SetPlacedPieces(data.CurrentBoardData.placedPieces);
+        boardView?.SetAvailableActions(data.CurrentBoardData.availableActions);
+
+        resetController?.SetAvailableActions(model.AvailableActions);
     }
 }

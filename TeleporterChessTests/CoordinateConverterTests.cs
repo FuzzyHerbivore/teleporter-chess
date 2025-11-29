@@ -17,9 +17,8 @@ public class CoordinateConverterTests
         gridMapVector.X = gridMapColumn;
         gridMapVector.Z = gridMapRow;
 
-        Square square = CoordinateConverter.ConvertGridMapCoordinatesToSquare(gridMapVector);
-        Square expectedSquare = new(expectedColumn, expectedRow);
-        Assert.Equal(expectedSquare, square);
+        (Column column, Row row) = CoordinateConverter.ConvertGridMapCoordinatesToBoardCoordinates(gridMapVector);
+        Assert.Equal((expectedColumn, expectedRow), (column, row));
     }
 
     [Theory]
@@ -28,7 +27,7 @@ public class CoordinateConverterTests
     [InlineData(Column.H, Row._8, 3, 3)]
     public void ConvertSquareToGridMapCoordinatesReturnsCorrectCoordinates(Column squareColumn, Row squareRow, int expectedColumn, int expectedRow)
     {
-        Vector3I gridMapCoordinates = CoordinateConverter.ConvertSquareToGridMapCoordinates(new Square(squareColumn, squareRow));
+        Vector3I gridMapCoordinates = CoordinateConverter.ConvertBoardCoordinatesToGridMapCoordinates(squareColumn, squareRow);
 
         Assert.Equal((expectedColumn, expectedRow), (gridMapCoordinates.X, gridMapCoordinates.Z));
     }

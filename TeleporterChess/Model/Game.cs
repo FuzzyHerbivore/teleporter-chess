@@ -1,5 +1,4 @@
 using System;
-using Godot;
 
 namespace TeleporterChess.Model;
 
@@ -16,16 +15,20 @@ public class Game
     GameData data;
     public GameData Data => data;
 
+    GameActions availableActions;
+    public GameActions AvailableActions => availableActions;
+
     readonly Board board = new();
 
     readonly Player[] players = [new() { color = Player.Color.White }, new() { color = Player.Color.Black }];
     Player currentPlayer;
-    Square? selectedSquare;
 
     public event Action<GameData> DataChanged;
 
     public Game()
     {
+        availableActions = new(Reset);
+
         Reset();
     }
 
@@ -49,18 +52,8 @@ public class Game
         {
             currentPlayer = players[0];
         }
-    }
 
-    public void SelectSquare(Square square)
-    {
-        selectedSquare = square;
-        GD.Print($"Selected {selectedSquare}");
-    }
-
-    public void DeselectAll()
-    {
-        selectedSquare = null;
-        GD.Print($"Deelected {selectedSquare}");
+        UpdateData();
     }
 
     private void UpdateData()

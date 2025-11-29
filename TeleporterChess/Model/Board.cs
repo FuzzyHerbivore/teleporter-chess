@@ -1,14 +1,17 @@
 using System.Collections.Generic;
+using Godot;
 
 namespace TeleporterChess.Model;
 
 public class Board()
 {
     Dictionary<Square, Piece> placedPieces = [];
+    Square? selectedSquare;
 
     public BoardData Data => new()
     {
-        placedPieces = new(placedPieces)
+        placedPieces = new(placedPieces),
+        availableActions = new(SelectSquare, DeselectAll)
     };
 
     public void Reset()
@@ -50,21 +53,11 @@ public class Board()
             };
     }
 
-    public bool IsPlaceable(Piece piece, Square square)
-    {
-        // TODO: Add other conditions per piece type in separate methods
-        if (GetPieceAt(square) != null) return false; // TODO: Change this to check for capture
-                                                      // TODO: Add check for check/checkmate/stallmate
-
-        return true;
-    }
-
     public bool TryPlacing(Piece piece, Square square)
     {
         if (!IsPlaceable(piece, square)) return false;
 
         placedPieces[square] = piece;
-
         return true;
     }
 
@@ -76,5 +69,26 @@ public class Board()
         }
 
         return null;
+    }
+
+    public bool SelectSquare(Square square)
+    {
+        selectedSquare = square;
+        GD.Print($"Selected {selectedSquare}");
+        return true; // TODO: Check for validity depending on what mode we're in... think about API
+    }
+
+    public void DeselectAll()
+    {
+        selectedSquare = null;
+    }
+
+    private bool IsPlaceable(Piece piece, Square square)
+    {
+        // TODO: Add other conditions per piece type in separate methods
+        if (GetPieceAt(square) != null) return false; // TODO: Change this to check for capture
+                                                      // TODO: Add check for check/checkmate/stallmate
+
+        return true;
     }
 }

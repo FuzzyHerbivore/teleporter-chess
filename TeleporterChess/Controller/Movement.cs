@@ -1,7 +1,9 @@
 #nullable enable
 
+using System;
 using Godot;
 using Godot.Collections;
+using TeleporterChess.Model;
 
 namespace TeleporterChess.Controller;
 
@@ -16,11 +18,13 @@ public partial class Movement : Node3D
     [ExportGroup("Dependencies")]
     [Export] private GridMap? gridMap;
 
-    Model.GameCallbacks? callbacks;
+    Func<Square, bool>? SelectSquareAction;
+    Action? DeselectAllAction;
 
-    public void SetCallbacks(Model.GameCallbacks callbacks)
+    public void SetAvailableActions(BoardActions actions)
     {
-        this.callbacks = callbacks;
+        SelectSquareAction = actions.SelectSquareAction;
+        DeselectAllAction = actions.DeselectAllAction;
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -34,12 +38,7 @@ public partial class Movement : Node3D
             Vector3 hitPosition = (Vector3)hitPositionVariant;
 
             if (gridMap is not GridMap someGridMap) return;
-            var cellPosition = someGridMap.LocalToMap(hitPosition);
-
-            // TODO: When piece is selected, highlight hovered cells with valid/invalid color/shape
-            Model.Square square = Utils.CoordinateConverter.ConvertGridMapCoordinatesToSquare(cellPosition);
-
-            callbacks?.SelectSquare(square);
+            var gridMapPosition = someGridMap.LocalToMap(hitPosition);
         }
 
         if (@event.IsActionPressed("select"))
@@ -55,8 +54,15 @@ public partial class Movement : Node3D
             Vector3 hitPosition = (Vector3)hitPositionVariant;
 
             if (gridMap is not GridMap someGridMap) return;
-            var cellPosition = someGridMap.LocalToMap(hitPosition);
-            GD.Print($"Gridmap cell: {cellPosition}");
+            var gridMapPosition = someGridMap.LocalToMap(hitPosition);
+            GD.Print($"Gridmap cell: {gridMapPosition}");
+
+            SelectSquareAction?.Invoke(new Square(gridMapPosition));
+        }
+
+        if (@event.IsActionPressed("deselect"))
+        {
+            DeselectAllAction?.Invoke();
         }
     }
 

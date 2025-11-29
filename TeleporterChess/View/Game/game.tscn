@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c752jlaxnce2d"]
+[gd_scene load_steps=10 format=3 uid="uid://c752jlaxnce2d"]
 
 [ext_resource type="Script" uid="uid://cyo7qt73oby25" path="res://View/Game/Game.cs" id="1_3phup"]
 [ext_resource type="PackedScene" uid="uid://bk1qo8ivigb8f" path="res://View/Game/Set/camera_rig.tscn" id="2_4yymi"]
+[ext_resource type="Script" uid="uid://tybmslxqf3eb" path="res://Controller/ResetController.cs" id="2_pfkht"]
 [ext_resource type="PackedScene" uid="uid://s2mvel0cujau" path="res://View/Board/board.tscn" id="3_pfkht"]
 
 [sub_resource type="Gradient" id="Gradient_feb5d"]
@@ -32,6 +33,10 @@ adjustment_color_correction = SubResource("GradientTexture1D_fc0e3")
 
 [node name="Game" type="Node"]
 script = ExtResource("1_3phup")
+
+[node name="ResetController" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_pfkht")
 
 [node name="Set" type="Node3D" parent="."]
 
