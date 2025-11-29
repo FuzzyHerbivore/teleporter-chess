@@ -24,3 +24,6 @@ bin/
 .DS_Store
 *~
 *.blend1
+
+# direnv-specific ignores
+.direnv/
