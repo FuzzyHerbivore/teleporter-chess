@@ -7,8 +7,8 @@ public class GridMapIdMapperTests
 {
     [Theory]
     [InlineData(Piece.Type.King, Player.Color.Black, 0)]
-    [InlineData(Piece.Type.Queen, Player.Color.Black, 3)]
-    [InlineData(Piece.Type.King, Player.Color.White, 5)]
+    [InlineData(Piece.Type.King, Player.Color.White, 1)]
+    [InlineData(Piece.Type.Queen, Player.Color.Black, 6)]
     [InlineData(Piece.Type.Rook, Player.Color.White, 9)]
     public void MapGridMapIdToPieceReturnsCorrectId(Piece.Type pieceType, Player.Color pieceColor, int expectedGridMapId)
     {
@@ -20,7 +20,7 @@ public class GridMapIdMapperTests
     [Fact]
     public void MapGridMapIdToPieceReturnsNullForIncorrectId()
     {
-        int invalidId = 10;
+        int invalidId = 12;
         Piece? piece = GridMapIdMapper.MapGridMapIdToPiece(invalidId);
 
         Assert.Null(piece);
@@ -28,8 +28,8 @@ public class GridMapIdMapperTests
 
     [Theory]
     [InlineData(0, Piece.Type.King, Player.Color.Black)]
-    [InlineData(3, Piece.Type.Queen, Player.Color.Black)]
-    [InlineData(5, Piece.Type.King, Player.Color.White)]
+    [InlineData(1, Piece.Type.King, Player.Color.White)]
+    [InlineData(6, Piece.Type.Queen, Player.Color.Black)]
     [InlineData(9, Piece.Type.Rook, Player.Color.White)]
     public void MapGridMapIdToPieceReturnsCorrectPiece(int gridMapId, Piece.Type expectedPieceType, Player.Color expectedPieceColor)
     {
