@@ -18,7 +18,7 @@ public class Game
     GameActions availableActions;
     public GameActions AvailableActions => availableActions;
 
-    readonly Board board = new();
+    readonly Board board;
 
     readonly Player[] players = [new() { color = Player.Color.White }, new() { color = Player.Color.Black }];
     Player currentPlayer;
@@ -27,6 +27,8 @@ public class Game
 
     public Game()
     {
+        board = new(UpdateData, SwitchCurrentPlayer, GetCurrentPlayerColor);
+
         availableActions = new(Reset, SwitchCurrentPlayer);
 
         Reset();
@@ -40,6 +42,11 @@ public class Game
         board.Reset();
 
         UpdateData();
+    }
+
+    public Player.Color GetCurrentPlayerColor()
+    {
+        return currentPlayer.color;
     }
 
     public void SwitchCurrentPlayer()

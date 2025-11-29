@@ -39,7 +39,7 @@ public partial class Game : Node
         // TODO: Deal with UI
 
         boardView?.SetPlacedPieces(data.CurrentBoardData.placedPieces);
-        boardView?.SetAvailableActions(data.CurrentBoardData.availableActions);
+        boardView?.SetAvailableActions(data.AvailableBoardActions);
 
         resetController?.SetAvailableActions(model.AvailableActions);
     }

@@ -11,13 +11,13 @@ public partial class Board : Node3D
 {
     private GridMap? placementGrid;
 
-    private Controller.Movement? moveController;
+    private Controller.Movement? movementController;
 
     public override void _Ready()
     {
         placementGrid = GetNode<GridMap>("%PlacementGrid");
 
-        moveController = GetNode<Controller.Movement>("%MovementController");
+        movementController = GetNode<Controller.Movement>("%MovementController");
     }
 
     public void SetPlacedPieces(Dictionary<Square, Piece> placedPieces)
@@ -32,6 +32,6 @@ public partial class Board : Node3D
 
     public void SetAvailableActions(BoardActions availableActions)
     {
-        moveController?.SetAvailableActions(availableActions);
+        movementController?.SetAvailableActions(availableActions);
     }
 }

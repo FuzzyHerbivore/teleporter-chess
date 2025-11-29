@@ -15,7 +15,7 @@ script = ExtResource("1_vj8kq")
 [node name="MovementController" type="Node3D" parent="." node_paths=PackedStringArray("gridMap")]
 unique_name_in_owner = true
 script = ExtResource("5_hecc7")
-pieceSelectionLayers = 2
+gridSelectionLayers = 3
 gridMap = NodePath("../PlacementGrid")
 
 [node name="Visual" parent="." instance=ExtResource("1_5c38k")]

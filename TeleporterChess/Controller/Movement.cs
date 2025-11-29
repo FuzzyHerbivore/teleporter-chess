@@ -13,60 +13,63 @@ public partial class Movement : Node3D
 
     [ExportGroup("Physics")]
     [Export(PropertyHint.Layers3DPhysics)] private uint gridSelectionLayers = 1;
-    [Export(PropertyHint.Layers3DPhysics)] private uint pieceSelectionLayers = 1;
 
     [ExportGroup("Dependencies")]
     [Export] private GridMap? gridMap;
 
-    Func<Square, bool>? SelectSquareAction;
-    Action? DeselectAllAction;
+    Func<Square, bool>? SelectSquare;
+    Action? DeselectAll;
 
     public void SetAvailableActions(BoardActions actions)
     {
-        SelectSquareAction = actions.SelectSquareAction;
-        DeselectAllAction = actions.DeselectAllAction;
+        SelectSquare = actions.SelectSquareAction;
+        DeselectAll = actions.DeselectAllAction;
     }
 
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event is InputEventMouseMotion mouseMotion)
         {
-            var raycastResult = RaycastResultFromScreenPosition(mouseMotion.Position, pieceSelectionLayers);
-            if (raycastResult is not Dictionary someRaycastResult) return;
-
-            if (!someRaycastResult.TryGetValue("position", out Variant hitPositionVariant)) return;
-            Vector3 hitPosition = (Vector3)hitPositionVariant;
-
-            if (gridMap is not GridMap someGridMap) return;
-            var gridMapPosition = someGridMap.LocalToMap(hitPosition);
+            // TODO: Highlight hovered squares
         }
 
         if (@event.IsActionPressed("select"))
         {
             if (@event is not InputEventMouseButton mouseButton) return;
-            GD.Print($"Selected!");
 
-            var raycastResultOption = RaycastResultFromScreenPosition(mouseButton.Position, gridSelectionLayers);
-            if (raycastResultOption is not Dictionary raycastResult) return;
-            GD.Print($"Collision position: {raycastResult}");
+            Square? hitSquare = GetSquareFromScreenPosition(mouseButton.Position, gridSelectionLayers);
+            if (hitSquare is not Square someHitSquare) return;
 
-            if (!raycastResult.TryGetValue("position", out Variant hitPositionVariant)) return;
-            Vector3 hitPosition = (Vector3)hitPositionVariant;
-
-            if (gridMap is not GridMap someGridMap) return;
-            var gridMapPosition = someGridMap.LocalToMap(hitPosition);
-            GD.Print($"Gridmap cell: {gridMapPosition}");
-
-            SelectSquareAction?.Invoke(new Square(gridMapPosition));
+            bool? result = SelectSquare?.Invoke(someHitSquare);
         }
 
         if (@event.IsActionPressed("deselect"))
         {
-            DeselectAllAction?.Invoke();
+            DeselectAll?.Invoke();
         }
     }
 
-    private Dictionary? RaycastResultFromScreenPosition(Vector2 screenPosition, uint collisionMask = 0b11111111111111111111111111111111)
+    private Square? GetSquareFromScreenPosition(Vector2 screenPosition, uint? collisionMask)
+    {
+        Vector3? hitPosition = GetWorldPositionFromScreenPosition(screenPosition, collisionMask);
+        if (hitPosition is not Vector3 someHitPosition) return null;
+
+        if (gridMap is not GridMap someGridMap) return null;
+        var gridMapPosition = someGridMap.LocalToMap(ToLocal(someHitPosition));
+
+        return new Square(gridMapPosition);
+    }
+
+    private Vector3? GetWorldPositionFromScreenPosition(Vector2 screenPosition, uint? collisionMask)
+    {
+        var raycastResultOption = GetRaycastResultFromScreenPosition(screenPosition, collisionMask);
+        if (raycastResultOption is not Dictionary raycastResult) return null;
+
+        if (!raycastResult.TryGetValue("position", out Variant hitPositionVariant)) return null;
+        return (Vector3)hitPositionVariant;
+    }
+
+    private Dictionary? GetRaycastResultFromScreenPosition(Vector2 screenPosition, uint? collisionMask)
     {
         Camera3D camera = GetViewport().GetCamera3D();
         if (!IsInstanceValid(camera)) return null;
@@ -74,7 +77,7 @@ public partial class Movement : Node3D
         var raycastFrom = camera.ProjectRayOrigin(screenPosition);
         var raycastTo = raycastFrom + camera.ProjectRayNormal(screenPosition) * RAYCAST_DISTANCE;
 
-        var raycastParams = PhysicsRayQueryParameters3D.Create(raycastFrom, raycastTo, collisionMask);
+        var raycastParams = PhysicsRayQueryParameters3D.Create(raycastFrom, raycastTo, collisionMask ?? 0b11111111111111111111111111111111);
         var raycastResult = GetWorld3D().DirectSpaceState.IntersectRay(raycastParams);
 
         return raycastResult;

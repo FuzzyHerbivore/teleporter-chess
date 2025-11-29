@@ -1,12 +1,18 @@
+#nullable enable
+
+using System;
 using System.Collections.Generic;
-using Godot;
 
 namespace TeleporterChess.Model;
 
 public class Board
 {
     Dictionary<Square, Piece> placedPieces = [];
-    Square? selectedSquare;
+    readonly Action UpdateGameModel;
+    readonly Action SwitchCurrentPlayer;
+    readonly Func<Player.Color> GetCurrentPlayerColor;
+
+    SelectedPiece? selectedPiece; // Typestate pattern
 
     public BoardData Data => new()
     {
@@ -16,9 +22,65 @@ public class Board
     BoardActions availableActions;
     public BoardActions AvailableActions => availableActions;
 
-    public Board()
+    public Board(Action updateModelAction, Action switchCurrentPlayerAction, Func<Player.Color> getCurrentPlayerColor)
     {
+        UpdateGameModel = updateModelAction;
+        SwitchCurrentPlayer = switchCurrentPlayerAction;
+        GetCurrentPlayerColor = getCurrentPlayerColor;
+
         availableActions = new(SelectSquare, DeselectAll);
+    }
+
+    public bool SelectSquare(Square square)
+    {
+        Piece? piece = GetPieceAt(square);
+
+        // Select piece, no matter if a piece was selected before or not, but check for current player
+        if (piece is Piece somePiece)
+        {
+            if (somePiece.color != GetCurrentPlayerColor()) return false;
+
+            selectedPiece = new(somePiece, square);
+
+            return true;
+        }
+
+        // When no piece is at the selected square but a piece was previously selected, try moving the piece to the square
+        if (selectedPiece is SelectedPiece previousSelectedPiece)
+        {
+            return TryMovingSelectedPieceTo(square);
+
+            // TODO: Check for actions to do, outsource into other method
+        }
+
+        // Unoccupied squares can not be selected
+        return false;
+    }
+
+    private bool TryMovingSelectedPieceTo(Square square)
+    {
+        if (selectedPiece is not SelectedPiece someSelectedPiece) return false;
+
+        bool success = TryPlacing(someSelectedPiece.piece, someSelectedPiece.square, square);
+
+        if (success)
+        {
+            selectedPiece = null;
+
+            SwitchCurrentPlayer();
+            UpdateGameModel();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void DeselectAll()
+    {
+        selectedPiece = null;
+
+        UpdateGameModel();
     }
 
     public void Reset()
@@ -60,15 +122,18 @@ public class Board
             };
     }
 
-    public bool TryPlacing(Piece piece, Square square)
+    public bool TryPlacing(Piece piece, Square? fromSquare, Square toSquare) // TODO: Investigate if tests can access private methods, make private if so
     {
-        if (!IsPlaceable(piece, square)) return false;
+        if (!IsPlaceable(piece, toSquare)) return false;
 
-        placedPieces[square] = piece;
+        placedPieces[toSquare] = piece;
+
+        if (fromSquare is Square someFromSquare) placedPieces.Remove(someFromSquare);
+
         return true;
     }
 
-    public Piece? GetPieceAt(Square square)
+    public Piece? GetPieceAt(Square square) // TODO: Investigate if tests can access private methods, make private if so
     {
         if (placedPieces.TryGetValue(square, out Piece piece))
         {
@@ -76,18 +141,6 @@ public class Board
         }
 
         return null;
-    }
-
-    public bool SelectSquare(Square square)
-    {
-        selectedSquare = square;
-        GD.Print($"Selected {selectedSquare}");
-        return true; // TODO: Check for validity depending on what mode we're in... think about API
-    }
-
-    public void DeselectAll()
-    {
-        selectedSquare = null;
     }
 
     private bool IsPlaceable(Piece piece, Square square)
