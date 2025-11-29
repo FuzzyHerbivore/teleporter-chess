@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://6xisiirnve5"
-path="res://.godot/imported/QueenBlack.fbx-f54f553d59b068edd531dcf688133a28.scn"
+uid="uid://vimoariqbdhc"
+path="res://.godot/imported/ChessBoard.fbx-420f19fc5f60759be733ec3b3b79206b.scn"
 
 [deps]
 
-source_file="res://pieces/assets/QueenBlack.fbx"
-dest_files=["res://.godot/imported/QueenBlack.fbx-f54f553d59b068edd531dcf688133a28.scn"]
+source_file="res://View/Board/assets/ChessBoard.fbx"
+dest_files=["res://.godot/imported/ChessBoard.fbx-420f19fc5f60759be733ec3b3b79206b.scn"]
 
 [params]
 

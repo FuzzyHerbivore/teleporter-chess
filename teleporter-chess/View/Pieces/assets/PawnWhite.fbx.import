@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d1fsmbss27t74"
-path="res://.godot/imported/KingBlack.fbx-15e7f56b70bb4ffc5dfd8adec5d7ce33.scn"
+uid="uid://dr8sa4x67bahj"
+path="res://.godot/imported/PawnWhite.fbx-9479b8619c25a1ab9ebd345479cf86ca.scn"
 
 [deps]
 
-source_file="res://pieces/assets/KingBlack.fbx"
-dest_files=["res://.godot/imported/KingBlack.fbx-15e7f56b70bb4ffc5dfd8adec5d7ce33.scn"]
+source_file="res://View/Pieces/assets/PawnWhite.fbx"
+dest_files=["res://.godot/imported/PawnWhite.fbx-9479b8619c25a1ab9ebd345479cf86ca.scn"]
 
 [params]
 

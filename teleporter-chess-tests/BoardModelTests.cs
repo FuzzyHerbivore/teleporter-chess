@@ -43,12 +43,22 @@ public class BoardModelTests
     {
         Board board = new();
         var piece = new Piece();
-        Square square = new(Column.A, Row._1);
-        board.TryPlacing(piece, square);
+        Square squareToBeCleared = new(Column.E, Row._5);
+        board.TryPlacing(piece, squareToBeCleared);
 
         board.Reset();
 
-        Assert.Empty(board.Data.placedPieces); // TODO: This needs to check for the start setup
+        Assert.False(board.Data.placedPieces.TryGetValue(squareToBeCleared, out _));
+
+        Piece expectedRookWhite = board.Data.placedPieces[new Square(Column.A, Row._1)];
+        Piece expectedKingWhite = board.Data.placedPieces[new Square(Column.E, Row._1)];
+        Piece expectedRookBlack = board.Data.placedPieces[new Square(Column.A, Row._8)];
+        Piece expectedKingBlack = board.Data.placedPieces[new Square(Column.E, Row._8)];
+
+        Assert.Equal(new Piece(Piece.Type.Rook, Player.Color.White), expectedRookWhite);
+        Assert.Equal(new Piece(Piece.Type.King, Player.Color.White), expectedKingWhite);
+        Assert.Equal(new Piece(Piece.Type.Rook, Player.Color.Black), expectedRookBlack);
+        Assert.Equal(new Piece(Piece.Type.King, Player.Color.Black), expectedKingBlack);
     }
 
     [Theory]

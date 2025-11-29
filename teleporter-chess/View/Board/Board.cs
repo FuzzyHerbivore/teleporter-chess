@@ -1,6 +1,5 @@
 #nullable enable
 
-using System.Collections.Generic;
 using Godot;
 using TeleporterChess.Model;
 using TeleporterChess.Utils;

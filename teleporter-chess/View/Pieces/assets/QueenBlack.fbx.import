@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://tobicfedo2vs"
-path="res://.godot/imported/RookBlack.fbx-706bb56168eaa0ba16c85a34dd65c123.scn"
+uid="uid://6xisiirnve5"
+path="res://.godot/imported/QueenBlack.fbx-8bea6eef4784b34e22e1f7d787142ec0.scn"
 
 [deps]
 
-source_file="res://pieces/assets/RookBlack.fbx"
-dest_files=["res://.godot/imported/RookBlack.fbx-706bb56168eaa0ba16c85a34dd65c123.scn"]
+source_file="res://View/Pieces/assets/QueenBlack.fbx"
+dest_files=["res://.godot/imported/QueenBlack.fbx-8bea6eef4784b34e22e1f7d787142ec0.scn"]
 
 [params]
 

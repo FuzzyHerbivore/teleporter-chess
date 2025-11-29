@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://vimoariqbdhc"
-path="res://.godot/imported/ChessBoard.fbx-0a460f45fa1c165b60d30b43415cda05.scn"
+uid="uid://81fmncux3udq"
+path="res://.godot/imported/BishopWhite.fbx-4156804a0fb11c63d7f1895affe56db7.scn"
 
 [deps]
 
-source_file="res://board/assets/ChessBoard.fbx"
-dest_files=["res://.godot/imported/ChessBoard.fbx-0a460f45fa1c165b60d30b43415cda05.scn"]
+source_file="res://View/Pieces/assets/BishopWhite.fbx"
+dest_files=["res://.godot/imported/BishopWhite.fbx-4156804a0fb11c63d7f1895affe56db7.scn"]
 
 [params]
 

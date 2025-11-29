@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://c752jlaxnce2d"]
 
 [ext_resource type="Script" uid="uid://cyo7qt73oby25" path="res://View/Game/Game.cs" id="1_3phup"]
-[ext_resource type="PackedScene" uid="uid://bk1qo8ivigb8f" path="res://set/camera_rig.tscn" id="2_4yymi"]
-[ext_resource type="PackedScene" uid="uid://s2mvel0cujau" path="res://board/board.tscn" id="3_pfkht"]
+[ext_resource type="PackedScene" uid="uid://bk1qo8ivigb8f" path="res://View/Game/Set/camera_rig.tscn" id="2_4yymi"]
+[ext_resource type="PackedScene" uid="uid://s2mvel0cujau" path="res://View/Board/board.tscn" id="3_pfkht"]
 
 [sub_resource type="Gradient" id="Gradient_feb5d"]
 offsets = PackedFloat32Array(0.07476635, 1)

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://76l0ajbv20b2"
-path="res://.godot/imported/PawnBlack.fbx-58c40a34a3e9d5510058cefd20e68976.scn"
+uid="uid://tobicfedo2vs"
+path="res://.godot/imported/RookBlack.fbx-34b86a4f0895ceaea14887f0cb0a2805.scn"
 
 [deps]
 
-source_file="res://pieces/assets/PawnBlack.fbx"
-dest_files=["res://.godot/imported/PawnBlack.fbx-58c40a34a3e9d5510058cefd20e68976.scn"]
+source_file="res://View/Pieces/assets/RookBlack.fbx"
+dest_files=["res://.godot/imported/RookBlack.fbx-34b86a4f0895ceaea14887f0cb0a2805.scn"]
 
 [params]
 

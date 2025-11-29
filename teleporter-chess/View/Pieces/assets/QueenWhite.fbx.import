@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b28blmsumrj4r"
-path="res://.godot/imported/QueenWhite.fbx-16d49e5573363014697e3e3656b50ff3.scn"
+path="res://.godot/imported/QueenWhite.fbx-b15698bbc1480bf6feea01128f22cd3a.scn"
 
 [deps]
 
-source_file="res://pieces/assets/QueenWhite.fbx"
-dest_files=["res://.godot/imported/QueenWhite.fbx-16d49e5573363014697e3e3656b50ff3.scn"]
+source_file="res://View/Pieces/assets/QueenWhite.fbx"
+dest_files=["res://.godot/imported/QueenWhite.fbx-b15698bbc1480bf6feea01128f22cd3a.scn"]
 
 [params]
 
