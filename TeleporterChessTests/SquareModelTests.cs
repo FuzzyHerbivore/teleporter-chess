@@ -6,6 +6,17 @@ using TeleporterChess.Model;
 public class SquareModelTests
 {
     [Theory]
+    [InlineData(-4, -4, Column.A, Row._1)]
+    [InlineData(0, 0, Column.E, Row._5)]
+    [InlineData(3, 3, Column.H, Row._8)]
+    public void ConstructorTakingVector3ICreatesCorrectSquare(int gridMapCoordinateX, int gridMapCoordinateZ, Column expectedColumn, Row expectedRow)
+    {
+        Square expectedSquare = new(new Vector3I(gridMapCoordinateX, 0, gridMapCoordinateZ));
+
+        Assert.Equal((expectedColumn, expectedRow), (expectedSquare.Column, expectedSquare.Row));
+    }
+
+    [Theory]
     [InlineData(Column.A, Row._1, -4, -4)]
     [InlineData(Column.E, Row._5, 0, 0)]
     [InlineData(Column.H, Row._8, 3, 3)]

@@ -13,14 +13,25 @@ public enum Row : uint
     _1, _2, _3, _4, _5, _6, _7, _8
 }
 
-public struct Square(Column column, Row row)
+public struct Square
 {
-    public Column Column { get; private set; } = column;
-    public Row Row { get; private set; } = row;
+    public Square(Column column, Row row)
+    {
+        Column = column;
+        Row = row;
+    }
+
+    public Square(Vector3I vector)
+    {
+        (Column, Row) = CoordinateConverter.ConvertGridMapCoordinatesToBoardCoordinates(vector);
+    }
+
+    public Column Column { get; private set; }
+    public Row Row { get; private set; }
 
     public readonly Vector3I GetGridMapCoordinates()
     {
-        return CoordinateConverter.ConvertSquareToGridMapCoordinates(this);
+        return CoordinateConverter.ConvertBoardCoordinatesToGridMapCoordinates(Column, Row);
     }
 
     public readonly (Column, Row) GetManifestCoordinates()
