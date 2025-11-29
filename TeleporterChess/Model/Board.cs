@@ -28,10 +28,10 @@ public class Board
         SwitchCurrentPlayer = switchCurrentPlayerAction;
         GetCurrentPlayerColor = getCurrentPlayerColor;
 
-        availableActions = new(SelectSquare, DeselectAll);
+        availableActions = new(InteractWithSquare, DeselectAll);
     }
 
-    public bool SelectSquare(Square square)
+    public bool InteractWithSquare(Square square)
     {
         Piece? piece = GetPieceAt(square);
 
@@ -45,19 +45,17 @@ public class Board
             return true;
         }
 
-        // When no piece is at the selected square but a piece was previously selected, try moving the piece to the square
-        if (selectedPiece is SelectedPiece previousSelectedPiece)
-        {
-            return TryMovingSelectedPieceTo(square);
-
-            // TODO: Check for actions to do, outsource into other method
-        }
-
-        // Unoccupied squares can not be selected
-        return false;
+        return TryMovingSelectedPieceTo(square);
     }
 
-    private bool TryMovingSelectedPieceTo(Square square)
+    public void DeselectAll()
+    {
+        selectedPiece = null;
+
+        UpdateGameModel();
+    }
+
+    public bool TryMovingSelectedPieceTo(Square square)
     {
         if (selectedPiece is not SelectedPiece someSelectedPiece) return false;
 
@@ -76,14 +74,42 @@ public class Board
         return false;
     }
 
-    public void DeselectAll()
+    public Piece? GetPieceAt(Square square)
     {
-        selectedPiece = null;
+        if (placedPieces.TryGetValue(square, out Piece piece))
+        {
+            return piece;
+        }
 
-        UpdateGameModel();
+        return null;
     }
 
     public void Reset()
+    {
+        ResetPlacedPieces();
+    }
+
+    public bool TryPlacing(Piece piece, Square? fromSquare, Square toSquare)
+    {
+        if (!IsPlaceable(piece, toSquare)) return false;
+
+        placedPieces[toSquare] = piece;
+
+        if (fromSquare is Square someFromSquare) placedPieces.Remove(someFromSquare);
+
+        return true;
+    }
+
+    private bool IsPlaceable(Piece piece, Square square)
+    {
+        // TODO: Add other conditions per piece type in separate methods
+        if (GetPieceAt(square) != null) return false; // TODO: Change this to check for capture
+                                                      // TODO: Add check for check/checkmate/stallmate
+
+        return true;
+    }
+
+    private void ResetPlacedPieces()
     {
         placedPieces = new()
             {
@@ -120,35 +146,5 @@ public class Board
                 {new Square(Column.G, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
                 {new Square(Column.H, Row._7), new Piece(Piece.Type.Pawn, Player.Color.Black)},
             };
-    }
-
-    public bool TryPlacing(Piece piece, Square? fromSquare, Square toSquare) // TODO: Investigate if tests can access private methods, make private if so
-    {
-        if (!IsPlaceable(piece, toSquare)) return false;
-
-        placedPieces[toSquare] = piece;
-
-        if (fromSquare is Square someFromSquare) placedPieces.Remove(someFromSquare);
-
-        return true;
-    }
-
-    public Piece? GetPieceAt(Square square) // TODO: Investigate if tests can access private methods, make private if so
-    {
-        if (placedPieces.TryGetValue(square, out Piece piece))
-        {
-            return piece;
-        }
-
-        return null;
-    }
-
-    private bool IsPlaceable(Piece piece, Square square)
-    {
-        // TODO: Add other conditions per piece type in separate methods
-        if (GetPieceAt(square) != null) return false; // TODO: Change this to check for capture
-                                                      // TODO: Add check for check/checkmate/stallmate
-
-        return true;
     }
 }

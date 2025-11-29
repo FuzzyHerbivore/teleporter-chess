@@ -4,8 +4,8 @@ using System;
 
 namespace TeleporterChess.Model;
 
-public struct BoardActions(Func<Square, bool>? selectSquareAction, Action? deselectAllAction)
+public struct BoardActions(Func<Square, bool>? interactWithSquareAction, Action? deselectAllAction)
 {
-    public Func<Square, bool>? SelectSquareAction { get; private set; } = selectSquareAction;
+    public Func<Square, bool>? InteractWithSquareAction { get; private set; } = interactWithSquareAction;
     public Action? DeselectAllAction { get; private set; } = deselectAllAction;
 }

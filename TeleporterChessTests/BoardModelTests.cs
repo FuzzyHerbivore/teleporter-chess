@@ -39,25 +39,20 @@ public class BoardModelTests
         Assert.Empty(data.placedPieces);
     }
 
-    // [Theory]
-    // [InlineData(Piece.Type.Pawn, Column.A, Row._2, Column.A, Row._3)]
-    // [InlineData(Piece.Type.Pawn, Column.E, Row._2, Column.E, Row._3)]
-    // [InlineData(Piece.Type.Pawn, Column.A, Row._2, Column.H, Row._3)]
-    // public void TryPlacingSucceeds(Piece.Type pieceType, Column fromColumn, Row fromRow, Column toColumn, Row toRow)
-    // {
-    //     GameSpy gameSpy = new(Player.Color.Black);
-    //     Board board = new(gameSpy.UpdateDataSpy, gameSpy.SwitchPlayerSpy, gameSpy.GetCurrentPlayerColorSpy);
+    [Fact]
+    public void TryMovingSelectedPieceFailsWhenNoPieceIsSelected()
+    {
+        GameSpy gameSpy = new();
+        Board board = new(gameSpy.UpdateDataSpy, gameSpy.SwitchPlayerSpy, () => { return Player.Color.Black; });
 
-    //     var piece = new Piece(pieceType, Player.Color.Black);
-    //     Square fromSquare = new(fromColumn, fromRow);
-    //     Square toSquare = new(toColumn, toRow);
+        var anyPiece = new Piece(Piece.Type.Pawn, Player.Color.Black);
+        Square anySquare = new(Column.A, Row._3);
 
-    //     Assert.True(board.TryPlacing(piece, fromSquare, toSquare));
+        Assert.False(board.TryMovingSelectedPieceTo(anySquare));
 
-    //     Assert.True(gameSpy.updateWasCalled);
-    //     Assert.True(gameSpy.switchPlayerWasCalled);
-    //     Assert.True(gameSpy.getCurrentPlayerColorWasCalled);
-    // }
+        Assert.False(gameSpy.updateWasCalled);
+        Assert.False(gameSpy.switchPlayerWasCalled);
+    }
 
     [Theory]
     [InlineData(Column.A, Row._1)]

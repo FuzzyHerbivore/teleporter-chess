@@ -3,6 +3,8 @@ using TeleporterChess.Utils;
 
 namespace TeleporterChess.Model;
 
+// Columns and Rows as enums allows avoiding runtime checks if position is legal
+
 public enum Column : uint
 {
     A, B, C, D, E, F, G, H

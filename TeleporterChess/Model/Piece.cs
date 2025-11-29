@@ -17,7 +17,6 @@ public struct Piece(Piece.Type type, Player.Color color)
     public Type type = type;
     public Player.Color color = color;
 
-
     public override readonly bool Equals([NotNullWhen(true)] object obj)
     {
         return base.Equals(obj);

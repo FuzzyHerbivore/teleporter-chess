@@ -17,12 +17,12 @@ public partial class Movement : Node3D
     [ExportGroup("Dependencies")]
     [Export] private GridMap? gridMap;
 
-    Func<Square, bool>? SelectSquare;
+    Func<Square, bool>? InteractWithSquare;
     Action? DeselectAll;
 
     public void SetAvailableActions(BoardActions actions)
     {
-        SelectSquare = actions.SelectSquareAction;
+        InteractWithSquare = actions.InteractWithSquareAction;
         DeselectAll = actions.DeselectAllAction;
     }
 
@@ -40,7 +40,7 @@ public partial class Movement : Node3D
             Square? hitSquare = GetSquareFromScreenPosition(mouseButton.Position, gridSelectionLayers);
             if (hitSquare is not Square someHitSquare) return;
 
-            bool? result = SelectSquare?.Invoke(someHitSquare);
+            bool? result = InteractWithSquare?.Invoke(someHitSquare);
         }
 
         if (@event.IsActionPressed("deselect"))
