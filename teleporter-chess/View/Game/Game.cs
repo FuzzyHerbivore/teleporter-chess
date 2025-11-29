@@ -12,13 +12,21 @@ public partial class Game : Node
 
     public GameData data;
 
+    public override void _EnterTree()
+    {
+        model.DataChanged += Model_DataChanged;
+    }
+
     public override void _Ready()
     {
         view = GetNode<Board>("%Board");
 
-        model.DataChanged += Model_DataChanged;
-
         model.Reset();
+    }
+
+    public override void _ExitTree()
+    {
+        model.DataChanged -= Model_DataChanged;
     }
 
     private void Model_DataChanged(GameData data)
