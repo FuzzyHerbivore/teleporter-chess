@@ -27,7 +27,7 @@ public class Game
 
     public Game()
     {
-        availableActions = new(Reset);
+        availableActions = new(Reset, SwitchCurrentPlayer);
 
         Reset();
     }
@@ -58,7 +58,7 @@ public class Game
 
     private void UpdateData()
     {
-        data = new(currentGameState, board.Data, currentPlayer);
+        data = new(currentGameState, currentPlayer, board.Data, board.AvailableActions);
 
         DataChanged?.Invoke(data);
     }

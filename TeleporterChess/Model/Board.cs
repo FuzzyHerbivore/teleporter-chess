@@ -3,7 +3,7 @@ using Godot;
 
 namespace TeleporterChess.Model;
 
-public class Board()
+public class Board
 {
     Dictionary<Square, Piece> placedPieces = [];
     Square? selectedSquare;
@@ -11,8 +11,15 @@ public class Board()
     public BoardData Data => new()
     {
         placedPieces = new(placedPieces),
-        availableActions = new(SelectSquare, DeselectAll)
     };
+
+    BoardActions availableActions;
+    public BoardActions AvailableActions => availableActions;
+
+    public Board()
+    {
+        availableActions = new(SelectSquare, DeselectAll);
+    }
 
     public void Reset()
     {
