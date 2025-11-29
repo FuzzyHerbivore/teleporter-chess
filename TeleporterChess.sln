@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "teleporter-chess", "teleporter-chess\teleporter-chess.csproj", "{BEE7B7A6-D4CC-DF74-F878-D7B2F32EE38B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleporterChess", "TeleporterChess\TeleporterChess.csproj", "{BEE7B7A6-D4CC-DF74-F878-D7B2F32EE38B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "teleporter-chess-tests", "teleporter-chess-tests\teleporter-chess-tests.csproj", "{51C8C83A-837C-422A-86E3-D9B12456CE71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleporterChessTests", "TeleporterChessTests\TeleporterChessTests.csproj", "{51C8C83A-837C-422A-86E3-D9B12456CE71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

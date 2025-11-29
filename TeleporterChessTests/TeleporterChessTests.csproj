@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\teleporter-chess\teleporter-chess.csproj" />
+    <ProjectReference Include="..\TeleporterChess\TeleporterChess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
