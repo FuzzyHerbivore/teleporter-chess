@@ -1,4 +1,5 @@
 using System;
+using Godot;
 
 namespace TeleporterChess.Model;
 
@@ -53,11 +54,13 @@ public class Game
     public void SelectSquare(Square square)
     {
         selectedSquare = square;
+        GD.Print($"Selected {selectedSquare}");
     }
 
     public void DeselectAll()
     {
         selectedSquare = null;
+        GD.Print($"Deelected {selectedSquare}");
     }
 
     private void UpdateData()

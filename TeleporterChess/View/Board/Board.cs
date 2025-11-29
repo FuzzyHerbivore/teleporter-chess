@@ -9,12 +9,12 @@ namespace TeleporterChess.View;
 public partial class Board : Node3D
 {
     private GameData? data;
-    private Controller.Board? controller;
+    private Controller.Movement? moveController;
     private GridMap? placementGrid;
 
     public override void _Ready()
     {
-        controller = GetNode<Controller.Board>("%Controller");
+        moveController = GetNode<Controller.Movement>("%MovementController");
         placementGrid = GetNode<GridMap>("%PlacementGrid");
     }
 
@@ -32,6 +32,6 @@ public partial class Board : Node3D
 
     public void SetCallbacks(GameCallbacks callbacks)
     {
-        controller?.SetCallbacks(callbacks);
+        moveController?.SetCallbacks(callbacks);
     }
 }

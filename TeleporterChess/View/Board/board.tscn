@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ueqhit2kwah1" path="res://View/Board/Board.cs" id="1_vj8kq"]
 [ext_resource type="MeshLibrary" uid="uid://d0e1uh0l6ju15" path="res://View/Pieces/pieces_mesh_library.tres" id="2_k4dee"]
 [ext_resource type="Script" uid="uid://b757jm3011kwm" path="res://View/Board/PlacementGrid.cs" id="4_eiwly"]
-[ext_resource type="Script" uid="uid://d2xqlk8hmjxfo" path="res://Controller/Board.cs" id="5_hecc7"]
+[ext_resource type="Script" uid="uid://d2xqlk8hmjxfo" path="res://Controller/Movement.cs" id="5_hecc7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k4dee"]
 size = Vector3(0.48, 0.001, 0.48)
@@ -12,7 +12,7 @@ size = Vector3(0.48, 0.001, 0.48)
 [node name="Board" type="Node3D"]
 script = ExtResource("1_vj8kq")
 
-[node name="Controller" type="Node3D" parent="." node_paths=PackedStringArray("gridMap")]
+[node name="MovementController" type="Node3D" parent="." node_paths=PackedStringArray("gridMap")]
 unique_name_in_owner = true
 script = ExtResource("5_hecc7")
 pieceSelectionLayers = 2

@@ -5,7 +5,7 @@ using Godot.Collections;
 
 namespace TeleporterChess.Controller;
 
-public partial class Board : Node3D
+public partial class Movement : Node3D
 {
     private const float RAYCAST_DISTANCE = 10.0f;
 
