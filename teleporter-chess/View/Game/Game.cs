@@ -16,10 +16,9 @@ public partial class Game : Node
     {
         view = GetNode<Board>("%Board");
 
-        view.SetData(data);
-        // view.SetCallbacks(callbacks);
-
         model.DataChanged += Model_DataChanged;
+
+        model.Reset();
     }
 
     private void Model_DataChanged(GameData data)
